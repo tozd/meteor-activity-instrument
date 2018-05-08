@@ -1,10 +1,16 @@
-export let vueInstance = null;
+import {Promise} from 'meteor/promise';
+
+let vueInstanceResolve = null;
+
+export const vueInstance = new Promise(function (resolve, reject) {
+  vueInstanceResolve = resolve;
+});
 export let previousRouter = null;
 
 export function init(collection, vm) {
-  vueInstance = vm;
+  vueInstanceResolve(vm);
 
-  vueInstance.$router.afterEach((to, from) => {
+  vm.$router.afterEach((to, from) => {
     previousRouter = from;
   });
 }
