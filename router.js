@@ -1,4 +1,4 @@
-import {vueInstance} from './client';
+import {vueInstance, previousRoute} from './client';
 import {flowRouterContextToRouteObject, vueRouterObjectToRouteObject} from './lib.js';
 
 let FlowRouter = null;
@@ -11,11 +11,19 @@ else if (Package['kadira:flow-router']) {
 }
 
 if (FlowRouter) {
-  FlowRouter.triggers.enter(function (context, redirect, stop) {
+  FlowRouter.triggers.exit(function (context, redirect) {
     Meteor.apply('Activity.route', [flowRouterContextToRouteObject(context)], {noRetry: true}, function (error, result) {
       // We are ignoring errors.
     });
   });
+
+  const currentRoute = FlowRouter.current();
+
+  if (currentRoute) {
+    Meteor.apply('Activity.route', [flowRouterContextToRouteObject(currentRoute)], {noRetry: true}, function (error, result) {
+      // We are ignoring errors.
+    });
+  }
 }
 
 vueInstance.then(function (vm) {
@@ -25,5 +33,11 @@ vueInstance.then(function (vm) {
         // We are ignoring errors.
       });
     });
+
+    if (vm.$route) {
+      Meteor.apply('Activity.route', [vueRouterObjectToRouteObject(vm.$route, previousRoute)], {noRetry: true}, function (error, result) {
+        // We are ignoring errors.
+      });
+    }
   }
 });

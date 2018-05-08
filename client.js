@@ -5,12 +5,12 @@ let vueInstanceResolve = null;
 export const vueInstance = new Promise(function (resolve, reject) {
   vueInstanceResolve = resolve;
 });
-export let previousRouter = null;
+export let previousRoute = null;
 
 export function init(collection, vm) {
   vueInstanceResolve(vm);
 
   vm.$router.afterEach((to, from) => {
-    previousRouter = from;
+    previousRoute = from;
   });
 }
