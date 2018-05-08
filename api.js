@@ -109,7 +109,7 @@ Meteor.methods({
       user = null;
     }
 
-    return Activity.documents.insert({
+    return collection.insert({
       timestamp: new Date(),
       connection: this.connection.id,
       byUser: user,

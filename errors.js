@@ -2,7 +2,7 @@ import {Meteor} from 'meteor/meteor';
 import {Promise} from 'meteor/promise';
 import {StackTrace} from 'meteor/peerlibrary:stacktrace';
 
-import {vueInstance, previousRoute} from './client';
+import {vueInstance, previousRouter} from './client';
 import {flowRouterContextToRouteObject, vueRouterObjectToRouteObject} from './lib.js';
 
 const getStack = function (error) {
@@ -30,7 +30,7 @@ window.addEventListener('error', function (event) {
   }
 
   if (vueInstance) {
-    route = vueRouterObjectToRouteObject(vueInstance.$route, previousRoute);
+    route = vueRouterObjectToRouteObject(vueInstance.$router, previousRouter);
   }
   else if (FlowRouter) {
     const currentRoute = FlowRouter.current();

@@ -11,7 +11,7 @@ else if (Package['kadira:flow-router']) {
 }
 
 if (vueInstance) {
-  vueInstance.$route.afterEach((to, from) => {
+  vueInstance.$router.afterEach((to, from) => {
     Meteor.apply('Activity.route', [vueRouterObjectToRouteObject(to, from)], {noRetry: true}, function (error, result) {
       // We are ignoring errors.
     });

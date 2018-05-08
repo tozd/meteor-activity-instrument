@@ -1,6 +1,6 @@
 import {Accounts} from 'meteor/accounts-base';
 
-import {collection} from './server';
+import {collection, levels} from './server';
 
 Accounts.onLogin(function (attempt) {
   collection.insert({
