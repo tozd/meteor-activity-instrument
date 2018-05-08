@@ -1,7 +1,7 @@
 Package.describe({
   name: 'tozd:activity-instrument',
   summary: "Instrument client and server to log user activity.",
-  version: '0.1.0',
+  version: '0.1.1',
   git: 'https://github.com/tozd/meteor-activity-instrument.git'
 });
 
