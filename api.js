@@ -18,14 +18,16 @@ Meteor.methods({
       user = null;
     }
 
-    collection.insert({
-      timestamp: new Date(),
-      connection: this.connection.id,
-      byUser: user,
-      type: 'route',
-      level: levels.DEBUG,
-      data: escapeKeys(routeObject),
-    });
+    if (collection !== null) {
+      collection.insert({
+        timestamp: new Date(),
+        connection: this.connection.id,
+        byUser: user,
+        type: 'route',
+        level: levels.DEBUG,
+        data: escapeKeys(routeObject),
+      });
+    }
   },
 
   'Activity.error'(error) {
@@ -61,14 +63,16 @@ Meteor.methods({
       user = null;
     }
 
-    collection.insert({
-      timestamp: new Date(),
-      connection: this.connection.id,
-      byUser: user,
-      type: 'error',
-      level: levels.ERROR,
-      data: escapeKeys(error),
-    });
+    if (collection !== null) {
+      collection.insert({
+        timestamp: new Date(),
+        connection: this.connection.id,
+        byUser: user,
+        type: 'error',
+        level: levels.ERROR,
+        data: escapeKeys(error),
+      });
+    }
   },
 
   'Activity.visibility'(visible) {
@@ -84,16 +88,18 @@ Meteor.methods({
       user = null;
     }
 
-    collection.insert({
-      timestamp: new Date(),
-      connection: this.connection.id,
-      byUser: user,
-      type: 'visibility',
-      level: levels.DEBUG,
-      data: {
-        visible,
-      },
-    });
+    if (collection !== null) {
+      collection.insert({
+        timestamp: new Date(),
+        connection: this.connection.id,
+        byUser: user,
+        type: 'visibility',
+        level: levels.DEBUG,
+        data: {
+          visible,
+        },
+      });
+    }
   },
 
   'Activity.focus'(focused) {
@@ -109,15 +115,17 @@ Meteor.methods({
       user = null;
     }
 
-    return collection.insert({
-      timestamp: new Date(),
-      connection: this.connection.id,
-      byUser: user,
-      type: 'focus',
-      level: levels.DEBUG,
-      data: {
-        focused,
-      },
-    });
+    if (collection !== null) {
+      collection.insert({
+        timestamp: new Date(),
+        connection: this.connection.id,
+        byUser: user,
+        type: 'focus',
+        level: levels.DEBUG,
+        data: {
+          focused,
+        },
+      });
+    }
   },
 });
